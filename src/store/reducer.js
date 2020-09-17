@@ -14,11 +14,11 @@ const reducer = (state = intitalState, action) => {
             };
         case 'ADD':
             return {
-                counter: state.counter + 5
+                counter: state.counter + action.payload.value
             };
         case 'SUBTRACT':
             return {
-                counter: state.counter - 5
+                counter: state.counter - action.payload.value
             };
 
         default:
