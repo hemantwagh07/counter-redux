@@ -1,3 +1,4 @@
+import * as actionTypes from './actions'
 const intitalState = {
     counter: 0,
     results: []
@@ -5,33 +6,33 @@ const intitalState = {
 
 const reducer = (state = intitalState, action) => {
     switch (action.type) {
-        case 'INCREMENT':
+        case actionTypes.INCREMENT:
             return {
                 ...state,
                 counter: state.counter + 1
             };
-        case 'DECREMENT':
+        case actionTypes.DECREMENT:
             return {
                 ...state,
                 counter: state.counter - 1
             };
-        case 'ADD':
+        case actionTypes.ADD:
             return {
                 ...state,
                 counter: state.counter + action.payload.value
             };
-        case 'SUBTRACT':
+        case actionTypes.SUBTRACT:
             return {
                 ...state,
                 counter: state.counter - action.payload.value
             };
-        case 'STORE_RESULT':
+        case actionTypes.STORE_RESULT:
             return {
                 ...state,
-                results: state.results.concat({ key: new Date(), value: state.counter }) 
+                results: state.results.concat({ key: new Date(), value: state.counter })
                 // Use concat instad of push, not to mutate original state
             };
-        case 'DELETE_RESULT':
+        case actionTypes.DELETE_RESULT:
             const updatedArray = state.results.filter((result) => {
                 return result.key !== action.payload.idtoDelete // return only element whose id is not equal to deleted id
             })// So it will return the updated array without deleted item
@@ -43,11 +44,7 @@ const reducer = (state = intitalState, action) => {
         default:
             break;
     }
-    if (action.type === 'INCREMENT') {
-        return {
-            counter: state.counter + 1
-        }
-    }
+    
     return state;
 };
 
