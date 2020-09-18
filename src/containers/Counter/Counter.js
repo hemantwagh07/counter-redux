@@ -13,6 +13,13 @@ class Counter extends Component {
                 <CounterControl label="Decrement" clicked={this.props.onDecrementCounter} />
                 <CounterControl label="Add 5" clicked={this.props.onAddCounter} />
                 <CounterControl label="Subtract 5" clicked={this.props.onSubtractCounter} />
+                <hr />
+                <button onClick={this.props.onStoreResult}>Store Result</button>
+                <ul>
+                    {this.props.storedResults.map((result) => (
+                        <li key={result.key} onClick={() => this.props.onDeleteResult(result.key)}>{result.value}</li>
+                    ))}
+                </ul>
             </div>
         );
     }
@@ -20,7 +27,8 @@ class Counter extends Component {
 
 const mapStateToProps = (stateFromRedux) => {
     return {
-        ctr: stateFromRedux.counter
+        ctr: stateFromRedux.counter,
+        storedResults: stateFromRedux.results
     }
 }
 
@@ -30,6 +38,8 @@ const mapDispatchToProps = (dispatch) => {
         onDecrementCounter: () => dispatch({ type: 'DECREMENT' }),
         onAddCounter: () => dispatch({ type: 'ADD', payload: { value: 5 } }),
         onSubtractCounter: () => dispatch({ type: 'SUBTRACT', payload: { value: 5 } }),
+        onStoreResult: () => dispatch({ type: 'STORE_RESULT' }),
+        onDeleteResult: (key) => dispatch({ type: 'DELETE_RESULT', payload: { idtoDelete: key } }),// Getting a key as paramenter passed from UI(Where we are calling a function) and sending it as payload to reducer
     }
 }
 
